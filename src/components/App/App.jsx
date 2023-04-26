@@ -8,9 +8,19 @@ function App() {
     return (
         <div className="App">
             <Header />
-            <main>
-                <p>Under Construction...</p>
-            </main>
+            <form>
+                <h2>Add an Item</h2>
+               <div> 
+                <p>Item: <input /></p>
+                <p>Quantity: <input /> Unit: <input /></p>
+               </div>
+               <button>Save</button>
+            </form>
+            <div>
+                <h2>Shopping List</h2>
+                <button>Reset</button> <button>Clear</button>
+            </div>
+            
         </div>
     );
 }
