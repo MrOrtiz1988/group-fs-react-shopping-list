@@ -18,10 +18,11 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     const shoppingList = req.body;
+
     const sqlText = `INSERT INTO shopping_list ("name", "quantity", "unit")
                      VALUES ($1, $2, $3)`;
 
-    pool.query(sqlText, [shoppingList.name, shoppingList.quantity, shoppingList.unit])
+    pool.query(sqlText, [shoppingList.item, shoppingList.quantity, shoppingList.unit])
         .then((result) => {
             console.log(`Added item to the database`, shoppingList);
             res.sendStatus(201);
