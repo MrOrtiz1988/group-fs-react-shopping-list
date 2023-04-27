@@ -4,6 +4,10 @@ import axios from 'axios';
 import Header from '../Header/Header.jsx';
 import './App.css';
 
+//import from refractoring
+import ItemForm from '../ItemForm/ItemForm.jsx';
+
+
 
 function App() {
     const [shoppingList, setShoppingList] = useState([]);
@@ -28,7 +32,8 @@ function fetchList(){
         console.log('WhoOpsies!', error);
     })
 }
-function saveList(event){
+
+function saveList (event){
     event.preventDefault;
     axios({
         method: 'POST',
@@ -38,54 +43,80 @@ function saveList(event){
             quantity: quantity,
             unit: unit
         }
-    }).then((response) => {
+    }).then((response) => { 
+        setItem('');
+        setQuantity('');
+        setUnit('');
         fetchList();
         console.log(response);
     }).catch((error) => {
         console.log('WhoOpsies!', error);
     })
 }
-    
+
+function updatePurchased(listId){
+    axios({
+        method: 'PUT',
+        url: `/shoppingList/${listId}`,
+        data: {
+          is_purchased: true
+        }
+        }).then(function(response) {
+            fetchList()
+        }).catch(function(error) {
+            console.log('uh no, you have no Money:', error);
+        })
+    }
+
+function checkPurchased(thingToCheck, id){
+    if (!thingToCheck){
+        return (
+            <>
+            <button onClick={() => {updatePurchased(id)}}>Buy</button> 
+            <button>Remove</button>
+            </>
+        )
+    }else{
+        return (
+            <>
+            <h4>Purchased</h4>
+            </>
+        )
+    }
+}
+
+
+
     return (
-        <div className="App">
+    <div className="App">
         <Header />
-        <form onSubmit={saveList}>
-            <h2>Add an Item</h2>
-           <div> 
-            <p>Item:</p> 
-            <input
-            type='text'
-             value={item}
-             onChange={(event) => {setItem(event.target.value)}}
-             />
-            <p>Quantity:</p> 
-            <input 
-            type='number'
-            value={quantity}
-            onChange={(event) => {setQuantity(event.target.value)}}
-            /> 
-            <p>Unit:</p> 
-            <input 
-            type='text'
-             value={unit}
-             onChange={(event) => {setUnit(event.target.value)}}
-             />
-           </div>
-           <button>Save</button>
-        </form>
+        <ItemForm 
+            saveList={saveList}
+            setItem={setItem}
+            setQuantity={setQuantity}
+            setUnit={setUnit}
+        />
         <div>
             <h2>Shopping List</h2>
             <button>Reset</button> <button>Clear</button>
             <div>
-            { 
-            shoppingList.map((list) => {
-            return <div className='box' key={list.id}>
-                <h3>{list.name}</h3>
-                <p>{list.quantity} {list.unit}</p>
-                <button>Buy</button> <button>Remove</button>
-                </div>
-            })
-            }
+                { 
+                shoppingList.map((list) => {
+                    return (
+                    <div className='box' key={list.id}>
+                    <h3>{list.name}</h3>
+                    <p>{list.quantity} {list.unit}</p>
+                    {checkPurchased(list.is_purchased, list.id)}
+                    {/* updatePurchased(list.id) = will run automatically 
+                    onClick function - good but depends
+                    onclick fucntion () - bad
+                    onClick function (fjnfjnv) - bad 
+                    onClick function (function (ghghgh) - good
+                    */}
+
+                    </div>
+                )})
+                }
             </div>
         </div>
     </div>

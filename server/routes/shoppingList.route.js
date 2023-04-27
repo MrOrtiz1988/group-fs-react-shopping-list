@@ -33,5 +33,27 @@ router.post('/', (req, res) => {
         })
 })
 
+router.put('/:id', (req, res) => {
+
+    let listId = req.params.id;
+    console.log('here is our id', req.params.id);
+    let bought = req.body.is_purchased;
+    console.log('This should always be complete', req.body.status);
+    let sqlText = `
+        UPDATE "shopping_list"
+        SET "is_purchased"=$1
+        WHERE "id"=$2;
+        `
+    let sqlValues = [bought, listId];
+      
+    pool.query(sqlText, sqlValues)
+        .then((dbRes) => {
+        res.sendStatus(200);
+        })
+        .catch((dbErr) => {
+        console.log('PUT /shoppingList/:id fail:', dbErr);
+        res.sendStatus(500);
+          })
+    })
 
 module.exports = router;
