@@ -34,7 +34,6 @@ router.post('/', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-
     let listId = req.params.id;
     console.log('here is our id', req.params.id);
     let bought = req.body.is_purchased;
