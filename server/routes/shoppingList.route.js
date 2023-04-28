@@ -78,4 +78,38 @@ router.put('/:id', (req, res) => {
             res.sendStatus(500);
           })
       })
+
+      router.post('/reset', (req, res) => {
+
+        let sqlText = `
+            UPDATE "shopping_list"
+            SET "is_purchased"=$1;
+            `
+        let sqlValues = [req.body.is_purchased];
+        console.log('what is sqlText and TurnFalse', sqlText);
+        pool.query(sqlText, sqlValues)
+            .then((dbRes) => {
+            res.sendStatus(200);
+            })
+            .catch((dbErr) => {
+            console.log('PUT /shoppingList/reset fail:', dbErr);
+            res.sendStatus(500);
+              })
+        })
+
+        router.post('/clear', (req, res) => {
+
+            let sqlText = `
+                    DELETE FROM shopping_list;
+                `
+            pool.query(sqlText)
+                .then((dbRes) => {
+                res.sendStatus(200);
+                })
+                .catch((dbErr) => {
+                console.log('PUT /shoppingList/clear fail:', dbErr);
+                res.sendStatus(500);
+                  })
+            })
+        
 module.exports = router;

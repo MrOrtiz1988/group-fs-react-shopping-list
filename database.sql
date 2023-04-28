@@ -11,3 +11,8 @@ CREATE TABLE shopping_list (
 
 INSERT INTO shopping_list ("name", "quantity", "unit")
 VALUES ('Apples', 5.3, 'lbs'), ('Milk', 2, 'Gallon')
+
+UPDATE "shopping_list"
+	SET "is_purchased"=false;
+            
+DELETE FROM shopping_list;

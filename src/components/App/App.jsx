@@ -67,6 +67,21 @@ function updatePurchased(listId){
             console.log('uh no, you have no Money:', error);
         })
     }
+// PUT Method for Reset Button
+// Want to have all 'True' turn to 'False'
+function resetPurchased(){
+    axios({
+        method: 'POST',
+        url: `/shoppingList/reset`,
+        data: {
+            is_purchased: false
+          }
+        }).then(function(response) {
+            fetchList()
+        }).catch(function(error) {
+            console.log('uh no, you have no Money:', error);
+        })
+    }
 
     function deletePurchased(listId){
         axios({
@@ -78,6 +93,18 @@ function updatePurchased(listId){
             console.log('uh no, you have no Money:', error);
         })
     }
+
+    function clearPurchased(){
+        axios({
+            method: 'POST',
+            url: `/shoppingList/clear`
+           
+            }).then(function(response) {
+                fetchList()
+            }).catch(function(error) {
+                console.log('uh no, you have no Money:', error);
+            })
+        }
    
     
 function checkPurchased(thingToCheck, id){
@@ -110,7 +137,8 @@ function checkPurchased(thingToCheck, id){
         />
         <div>
             <h2>Shopping List</h2>
-            <button>Reset</button> <button>Clear</button>
+            <button onClick={resetPurchased}>Reset</button> 
+            <button onClick={clearPurchased}>Clear</button>
             <div>
                 { 
                 shoppingList.map((list) => {
