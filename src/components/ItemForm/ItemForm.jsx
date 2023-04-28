@@ -4,26 +4,28 @@ return (
     <form onSubmit={props.saveList}>
         <h2>Add an Item</h2>
     <div> 
-        <p>Item:</p> 
-        <input
+        <label>Item: <input
             type='text'
+            placeholder="enter item"
             value={props.item}
             onChange={(event) => {props.setItem(event.target.value)}}
-        />
-        <p>Quantity:</p> 
-        <input 
+        /></label>
+        
+        <label>Quantity: <input 
             type='number'
+            placeholder="how many?"
             value={props.quantity}
             onChange={(event) => {props.setQuantity(event.target.value)}}
-        /> 
-        <p>Unit:</p> 
-        <input 
+        /></label>  
+
+        <label>Unit: <input 
             type='text'
+            placeholder="what units?"
             value={props.unit}
             onChange={(event) => {props.setUnit(event.target.value)}}
-        />
+        /></label>
     </div>
-    <button>Save</button>
+    <button clasName="save-btn">Save</button>
     </form>
 )
 

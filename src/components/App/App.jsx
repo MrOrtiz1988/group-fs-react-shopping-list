@@ -15,11 +15,9 @@ function App() {
     const [quantity, setQuantity] = useState('');
     const [unit, setUnit] = useState('');
     
-    useEffect(() => {
-        fetchList()
+useEffect(() => {
+      fetchList()
       }, [])
-
-    
 
 function fetchList(){
     axios({
@@ -43,15 +41,14 @@ function saveList (event){
             quantity: quantity,
             unit: unit
         }
-    }).then((response) => { 
-        setItem('');
-        setQuantity('');
-        setUnit('');
-        fetchList();
-        console.log(response);
-    }).catch((error) => {
-        console.log('WhoOpsies!', error);
-    })
+            }).then((response) => { 
+                setItem('');
+                setQuantity('');
+                setUnit('');
+                fetchList();
+            }).catch((error) => {
+                console.log('WhoOpsies!', error);
+            })
 }
 
 function updatePurchased(listId){
@@ -83,28 +80,28 @@ function resetPurchased(){
         })
     }
 
-    function deletePurchased(listId){
-        axios({
-            method: 'DELETE',
-            url: `/shoppingList/${listId}`,
-        }).then(function(response){
-            fetchList();
+function deletePurchased(listId){
+    axios({
+        method: 'DELETE',
+        url: `/shoppingList/${listId}`,
+    }).then(function(response){
+        fetchList();
+    }).catch(function(error) {
+        console.log('uh no, you have no Money:', error);
+    })
+}
+
+function clearPurchased(){
+    axios({
+        method: 'POST',
+        url: `/shoppingList/clear`
+        
+        }).then(function(response) {
+            fetchList()
         }).catch(function(error) {
             console.log('uh no, you have no Money:', error);
         })
-    }
-
-    function clearPurchased(){
-        axios({
-            method: 'POST',
-            url: `/shoppingList/clear`
-           
-            }).then(function(response) {
-                fetchList()
-            }).catch(function(error) {
-                console.log('uh no, you have no Money:', error);
-            })
-        }
+}
    
     
 function checkPurchased(thingToCheck, id){
@@ -118,13 +115,11 @@ function checkPurchased(thingToCheck, id){
     }else{
         return (
             <>
-            <h4>Purchased</h4>
+            <h4 className="purchased">$$Purchased$$</h4>
             </>
         )
     }
 }
-
-
 
     return (
     <div className="App">
@@ -160,11 +155,7 @@ function checkPurchased(thingToCheck, id){
             </div>
         </div>
     </div>
-
-    )
-        
+    )    
 }
-
-
 
 export default App;

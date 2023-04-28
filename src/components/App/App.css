@@ -15,3 +15,21 @@ body{
   margin: 50px;
   display: inline-block;
 }
+
+.purchased {
+  color: green;
+}
+
+label {
+  margin-right: 20px;
+}
+
+
+button {
+  border-radius: 15px;
+  margin-right: 10px;
+  margin-top: 10px;
+  height: 40px;
+  width: 70px;
+  text-align: center;
+}
