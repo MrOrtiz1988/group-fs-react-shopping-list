@@ -3,6 +3,9 @@ main {
   margin: auto;
 }
 
+body{
+  margin: 20px;
+}
 .box{
   border: 1px black solid;
   height: 200px;

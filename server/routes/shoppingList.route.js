@@ -56,4 +56,26 @@ router.put('/:id', (req, res) => {
           })
     })
 
+    router.delete('/:id', (req, res) => {
+        console.log(req.params);
+        
+        let listId = req.params.id;
+      
+        let sqlText = `
+          DELETE FROM "shopping_list"
+            WHERE "id"=$1;
+        `
+        let sqlValues = [listId]
+      
+        pool.query(sqlText, sqlValues)
+          .then((dbRes) => {
+   
+            res.sendStatus(200);
+          })
+          .catch((dbErr) => {
+            console.log('delete /creatures error:', dbErr);
+          
+            res.sendStatus(500);
+          })
+      })
 module.exports = router;
