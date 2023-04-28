@@ -68,12 +68,24 @@ function updatePurchased(listId){
         })
     }
 
+    function deletePurchased(listId){
+        axios({
+            method: 'DELETE',
+            url: `/shoppingList/${listId}`,
+        }).then(function(response){
+            fetchList();
+        }).catch(function(error) {
+            console.log('uh no, you have no Money:', error);
+        })
+    }
+   
+    
 function checkPurchased(thingToCheck, id){
     if (!thingToCheck){
         return (
             <>
             <button onClick={() => {updatePurchased(id)}}>Buy</button> 
-            <button>Remove</button>
+            <button onClick={() =>{deletePurchased(id)}}>Remove</button>
             </>
         )
     }else{
